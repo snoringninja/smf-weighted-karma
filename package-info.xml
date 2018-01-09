@@ -1,0 +1,22 @@
+<?xml version="1.5.1"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>iBeNifty:Karma_Weight</id>
+	<name>Karma/Rep Weight</name>
+	<version>1.5.1</version>
+	<type>modification</type>
+
+	<install for="2.0 - 2.0.99">
+		<redirect url="?action=admin;area=featuresettings;sa=karma" type="inline">
+			Please wait while you are being redirected to this modification's configuration settings.
+		</redirect>
+		<readme parsebbc="true">readme.txt</readme>
+		<modification>modification_2.xml</modification>
+		<modification>english.xml</modification>
+	</install>
+
+	<uninstall for="2.0 - 2.0.99">
+		<modification reverse="true">modification_2.xml</modification>
+		<modification reverse="true">english.xml</modification>
+	</uninstall>
+</package-info>

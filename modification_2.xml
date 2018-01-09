@@ -1,0 +1,148 @@
+<?xml version="1.5.1"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>iBeNifty:Karma_Weight</id>
+	<version>1.5.1</version>
+	
+	<file name="$sourcedir/Karma.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+function getUserKarma($memberId) {
+	
+	global $smcFunc, $modSettings;
+
+	$query = $smcFunc['db_query']('',
+		'SELECT karma_good, karma_bad
+		FROM {db_prefix}members
+		WHERE id_member = {int:member}
+		LIMIT 1',
+		array(
+			'member' => $memberId
+		)
+	);
+
+	list($karmaGood, $karmaBad) = $smcFunc['db_fetch_row']($query);
+	$smcFunc['db_free_result']($query);
+
+	return $karmaGood - $karmaBad;
+}
+]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[		// Change by one.
+		updateMemberData($_REQUEST['uid'], array($dir == 1 ? 'karma_good' : 'karma_bad' => '+'));]]></search>
+			<add><![CDATA[		// Replace by weight or if not set, replace by one
+		if ($dir > 0) {
+			for ($i = 0; $i < $dir; $i++) {
+				updateMemberData($_REQUEST['uid'], array('karma_good' => '+'));
+				if (!empty($modSettings['karma_weight_use_pool']))
+					updateMemberData($user_info['id'], array('karma_good' => '-'));
+			}
+		} else {
+			updateMemberData($_REQUEST['uid'], array('karma_bad' => '+'));
+		}]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[	// If you don't have enough posts, tough luck.
+	// !!! Should this be dropped in favor of post group permissions?  Should this apply to the member you are smiting/applauding?
+	if (!$user_info['is_admin'] && $user_info['posts'] < $modSettings['karmaMinPosts'])
+		fatal_lang_error('not_enough_posts_karma', true, array($modSettings['karmaMinPosts']));]]></search>
+			<add><![CDATA[	// If using the give by karma option, use it; otherwise, use the original post opption
+	if (!empty($modSettings['give_by_karma_enable'])) {
+		if (getUserKarma($user_info['id']) < $modSettings['give_by_karma'])
+			if (!empty($modSettings['give_by_karma_msg']))
+				fatal_error($modSettings['give_by_karma_msg']);
+			else
+				fatal_lang_error('give_by_karma_msg_fail');
+	} else {
+		if (!$user_info['is_admin'] && $user_info['posts'] < $modSettings['karmaMinPosts'])
+			fatal_lang_error('not_enough_posts_karma', true, array($modSettings['karmaMinPosts']));
+	}]]></add>
+		</operation>
+
+		<operation>
+			<search position="before"><![CDATA[	$dir = $_REQUEST['sa'] != 'applaud' ? -1 : 1;]]></search>
+			<add><![CDATA[	
+	// If the karma weight system is active, set $dir to: current_karma / weight_setting
+	if (!empty($modSettings['karma_weight_enable']) && $dir > 0) {
+		if (!empty($modSettings['give_by_karma_enable']))
+			if (getUserKarma($user_info['id']) > $modSettings['give_by_karma'])
+				$dir = (int) (getUserKarma($user_info['id']) / $modSettings['karma_weight']);
+		if (getUserKarma($user_info['id']) > $modSettings['karmaMinPosts'])
+			$dir = (int) (getUserKarma($user_info['id']) / $modSettings['karma_weight']);
+	}
+
+	if (!empty($modSettings['karma_weight_limit_enable'])) {
+		if ($dir > $modSettings['karma_weight_limit']) {
+			$dir = $modSettings['karma_weight_limit'];
+		}
+	}]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManageSettings.php">
+		<operation>
+			<search position="before"><![CDATA[			// What does it look like?  [smite]?
+			array('text', 'karmaLabel'),
+			array('text', 'karmaApplaudLabel'),
+			array('text', 'karmaSmiteLabel'),]]></search>
+			<add><![CDATA[
+		'',
+			array('check', 'karma_weight_enable'),
+			array('int', 'karma_weight'),
+		'',
+			array('check', 'give_by_karma_enable'),
+			array('int', 'give_by_karma'),
+			array('text', 'give_by_karma_msg', 'text'),
+		'',
+			array('check', 'karma_weight_limit_enable'),
+			array('int', 'karma_weight_limit'),
+		'',
+			array('check', 'karma_weight_use_pool'),]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManageMaintenance.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[// Karma Weight Mod - Set Karma Limits Function
+function SetAllKarmaLevels() {
+	global $context, $smcFunc, $txt;
+	$karma_good = $_POST['karmaval'] = empty($_POST['karmaval']) ? 0 : (int) $_POST['karmaval'];
+	$karma_bad = "0";
+	$id_member = "0";
+    $smcFunc['db_query']('', '
+		UPDATE {db_prefix}members
+		SET karma_good = {int:karma_good}
+		WHERE id_member != {int:id_member}',
+		array(
+			'id_member' => $id_member,
+			'karma_good' => $karma_good,
+		)
+	);
+    $smcFunc['db_query']('', '
+		UPDATE {db_prefix}members
+		SET karma_bad = {int:karma_bad}
+		WHERE id_member != {int:id_member}',
+		array(
+			'id_member' => $id_member,
+			'karma_bad' => $karma_bad,
+		)
+	);
+	$context['maintenance_finished'] = $txt['karma_weight_reset_complete'];
+}
+
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA['logs' => 'MaintainEmptyUnimportantLogs',
+				]]></search>
+			<add><![CDATA['resetkarma' => 'SetAllKarmaLevels',
+				]]></add>
+		</operation>
+	</file>
+
+</modification>

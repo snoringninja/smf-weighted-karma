@@ -1,0 +1,91 @@
+<?xml version="1.5.1"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>iBeNifty:Karma_Weight</id>
+	<version>1.5.1</version>
+        
+	<file name="$languagedir/Modifications.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Karma Weight mod
+$txt['karma_weight_enable'] = 'Enable Karma Weight?';
+$txt['karma_weight'] = 'Set the amount to weigh by:';
+$txt['give_by_karma_enable'] = 'Override post amount and use a karma amount?';
+$txt['give_by_karma'] = 'Set the amount of karma required to give karma:';
+$txt['give_by_karma_msg'] = 'Message for when the required karma amount isn\'t met:';
+$txt['give_by_karma_msg_fail'] = 'You don\t have enough karma to give karma.';
+$txt['karma_weight_limit_enable'] = 'Set a max amount of karma a user can give?';
+$txt['karma_weight_limit'] = 'Set the max amount of karma a user can give:';
+$txt['karma_weight_use_pool'] = 'Use the pooled karma system?';
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/Errors.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+// Karma Weight Mod - Give by Karma error message not set, so use this.
+$txt['give_by_karma_msg_fail'] = 'You don\'t have enough karma to give karma.';
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/ManageMaintenance.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[//Set all user karma to a set level (KARMA WEIGHT MOD)
+$txt['karma_weight_reset_title'] = 'Reset all user karma to a set level';
+$txt['karma_weight_reset_level'] = 'Reset karma level:';
+$txt['karma_weight_reset_go'] = 'Reset karma levels';
+$txt['karma_weight_reset_information'] = 'This task will reset all user karma to the given level.  This is useful if you want a complete and total reputation / karma reset.';
+$txt['karma_weight_reset_complete'] = 'Reset Karma Totals';
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$themedir/ManageMaintenance.template.php">
+		<operation>
+			<search position="before"><![CDATA[<div class="cat_bar">
+			<h3 class="catbg">', $txt['maintain_cache'], '</h3>
+		</div>
+		<div class="windowbg">
+			<span class="topslice"><span></span></span>
+			<div class="content">
+				<form action="', $scripturl, '?action=admin;area=maintain;sa=routine;activity=cleancache" method="post" accept-charset="', $context['character_set'], '">
+					<p>', $txt['maintain_cache_info'], '</p>
+					<span><input type="submit" value="', $txt['maintain_run_now'], '" class="button_submit" /></span>
+					<input type="hidden" name="', $context['session_var'], '" value="', $context['session_id'], '" />
+				</form>
+			</div>
+			<span class="botslice"><span></span></span>
+		</div>]]></search>
+		<add><![CDATA[<div class="cat_bar">
+			<h3 class="catbg">', $txt['karma_weight_reset_title'], '</h3>
+		</div>
+		<div class="windowbg>
+			<span class="topslice"><span></span></span>
+			<div class="content">
+				<form action="', $scripturl, '?action=admin;area=maintain;sa=routine;activity=resetkarma" method="post" accept-charset="', $context['character_set'], '">
+					<p>', $txt["karma_weight_reset_information"], '</p>
+					<p>', $txt['karma_weight_reset_level'], ' <input type="text" name="karmaval" value="10" size="3" class="input_text" />', '</p>
+					<p><span><input type="submit" value="', $txt['karma_weight_reset_go'], '"class="button_submit" /></span></p>
+				</form>
+			</div>
+		</div>]]></add>
+		</operation>
+	</file>
+
+	<file name="$languagedir/Help.english.php">
+		<operation>
+			<search position="end" />
+			<add><![CDATA[
+$helptxt['karma_weight_use_pool'] = "The pool system works in the following way:<br /><br />If a user has 200 karma on a
+	weight of 4 then when they give someone positive karma they would not only give four karma to the user, 
+	but would also lose four of their own karma.";
+	]]></add>
+		</operation>
+	</file>
+        
+</modification>
