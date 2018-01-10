@@ -23,7 +23,7 @@ One gripe I have with SMF's karma is that it relies on post count when determini
 ### 2.1 Support
 Right now, this won't work on 2.1, mostly because 2.1 did away with the karma system.  Once 2.1 stable is released, I do plan to look into adding a karma system that replicates the 2.0.x karma system, with the features from this mod added by default.  Until 2.1 stable is released, I will not be looking into doing this as things could very easily change in the 2.1 code.
 
-This mod is released under the [GNU/GPL License](http://www.gnu.org/copyleft/gpl.html).
+This mod is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 Questions/Comments/Concerns:  
 * Post in the SMF support thread [https://www.simplemachines.org/community/index.php?topic=527025.0](here).
