@@ -26,6 +26,6 @@ Right now, this won't work on 2.1, mostly because 2.1 did away with the karma sy
 This mod is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 Questions/Comments/Concerns:  
-* Post in the SMF support thread [https://www.simplemachines.org/community/index.php?topic=527025.0](here).
+* Post in the SMF support thread [here](https://www.simplemachines.org/community/index.php?topic=527025.0).
 * Use our support forums https://snoring.ninja/forums
 * Issues, please post an issue through GitHub
