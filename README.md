@@ -21,7 +21,7 @@ One gripe I have with SMF's karma is that it relies on post count when determini
 “Pooled” Karma System: no new karma is ever introduced into the community after the initial karma is set (i.e. giving certain users enough karma to give karma a few times). This new system works in a manner that when a user gives karma, they also lose the amount they give. For example, if I have 200 karma and it’s weighted by 50 I can give four karma. When I decide to give karma, not only I increase the recipients karma by four, but I also lose four karma for a total of 196 following the giving of karma.
 
 ### 2.1 Support
-Right now, this won't work on 2.1, mostly because 2.1 did away with the karma system.  Once 2.1 stable is released, I do plan to look into adding a karma system that replicates the 2.0.x karma system, with the features from this mod added by default.  Until 2.1 stable is released, I will not be looking into doing this as things could very easily change in the 2.1 code.
+Right now, this won't work on 2.1, mostly because 2.1 did away with the karma system.  There are no longer any plans to for us to bother readding karma into the system; however, someone did port the karma system to 2.1, so you could always find that and implement the features from this mod into that.
 
 This mod is released under the [MIT License](https://opensource.org/licenses/MIT).
 
