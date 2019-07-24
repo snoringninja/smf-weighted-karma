@@ -1,5 +1,5 @@
 # Karma/Rep Weight System - v 1.5.1
-###### By: Snoring Ninja (https://snoring.ninja)
+###### By: [Snoring Ninja](https://snoring.ninja)
 
 This mod does a few different things, all of which can be ignored and not enabled.
 * Provides a weighted system for giving reputation only (taking reputation is always one)
