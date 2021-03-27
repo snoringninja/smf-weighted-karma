@@ -1,5 +1,5 @@
 # Karma/Rep Weight System - v 1.5.1
-###### By: Snoring Ninja (https://snoring.ninja)
+###### By: [Snoring Ninja](https://snoring.ninja)
 
 This mod does a few different things, all of which can be ignored and not enabled.
 * Provides a weighted system for giving reputation only (taking reputation is always one)
@@ -7,7 +7,6 @@ This mod does a few different things, all of which can be ignored and not enable
 * Option in Admin > Maintenance > Forum Maintenance > Routine to reset all user good karma to a set level while setting negative karma to 0
 * Instead of using post count for determining when a user can give reputation, use the user's current reputation to decide
 * "Pool" the Karma to prevent any new karma from being added to the game; more information can be found by clicking the help icon next to the option
-
 
 ## Weighted Karma
 Weighted karma is a simple idea: take a user's karma and divide by the weight set in the admin panel to give that amount of karma instead of 1. So, if the weight is 15 and a user has 200 karma, they would give 13 karma.  I did not add weight to negative karma, as I am against that.  The weight system comes with two options.
@@ -21,11 +20,16 @@ One gripe I have with SMF's karma is that it relies on post count when determini
 “Pooled” Karma System: no new karma is ever introduced into the community after the initial karma is set (i.e. giving certain users enough karma to give karma a few times). This new system works in a manner that when a user gives karma, they also lose the amount they give. For example, if I have 200 karma and it’s weighted by 50 I can give four karma. When I decide to give karma, not only I increase the recipients karma by four, but I also lose four karma for a total of 196 following the giving of karma.
 
 ### 2.1 Support
-Right now, this won't work on 2.1, mostly because 2.1 did away with the karma system.  Once 2.1 stable is released, I do plan to look into adding a karma system that replicates the 2.0.x karma system, with the features from this mod added by default.  Until 2.1 stable is released, I will not be looking into doing this as things could very easily change in the 2.1 code.
+Right now, this won't work on 2.1, mostly because 2.1 did away with the karma system; however, there is a modification someone wrote to port the karma system that you can modify to include the changes from this modification.  I have no plans or interest in combining the two.
 
 This mod is released under the [MIT License](https://opensource.org/licenses/MIT).
 
 Questions/Comments/Concerns:  
-* Post in the SMF support thread [https://www.simplemachines.org/community/index.php?topic=527025.0](here).
-* Use our support forums https://snoring.ninja/forums
-* Issues, please post an issue through GitHub
+* Post in the SMF support thread [here](https://www.simplemachines.org/community/index.php?topic=527025.0).
+* [GitHub Issue Tracking  ](https://github.com/snoringninja/smf-weighted-karma/issues)
+
+I have since moved this over to the Snoring Ninja GitHub organization that I started for myself and some friends.
+
+---
+### Final Note
+This modification is for the Simple Machines Forum Software (SMF) and designed for the 2.0.x branch of the software.  This modification is not, and will not, work on a base install of the 2.1.x branch of the software.  This modification is no longer actively maintained, but occasionally receives minor updates.
