@@ -27,5 +27,4 @@ This mod is released under the [MIT License](https://opensource.org/licenses/MIT
 
 Questions/Comments/Concerns:  
 * Post in the SMF support thread [here](https://www.simplemachines.org/community/index.php?topic=527025.0).
-* Use our support forums https://snoring.ninja/forums
 * Issues, please post an issue through GitHub
